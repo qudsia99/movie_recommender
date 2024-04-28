@@ -1,0 +1,2 @@
+# hi
+ # pip freeze > requirements.txt in terminal (will create list of all my dependencies to be required)

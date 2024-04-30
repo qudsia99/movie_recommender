@@ -8,20 +8,20 @@ import pandas as pd
 app = Flask(__name__)
 Bootstrap(app)
 
-
+# Preloading column names
+# column_names = ['titl']
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-
-
-
-
-
-
-
-
+@app.route('/recommendation', methods=['POST'])
+def movies():
+    movie_title = request.form.get('title')
+    rec_df = pd.DataFrame([movie_title])
+    prediction = model.predict(rec_df)
+    result = prediction['title']
+    return render_template('index.html', result=result)
 
 
 

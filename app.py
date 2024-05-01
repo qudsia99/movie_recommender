@@ -23,7 +23,9 @@ def movies():
     result = prediction['title']
     return render_template('index.html', result=result)
 
-
+@app.route('/filter')
+def diagnosis_page():
+    return render_template('filter.html')
 
 
 

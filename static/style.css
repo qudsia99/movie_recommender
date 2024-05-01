@@ -1,10 +1,37 @@
+/* 
+To select a class: .classname
+To select an ID: #idname
+ */
+
 body {
     background-color: blueviolet;
 
 }
 
 h1 {
-    background-color:rgb(198, 136, 136);
-    margin: 10%;
+    background-color:rgb(200, 161, 161);
+    margin: 30%;
     text-align: center;
+    border-radius: 10px;
 }
+
+.main-bar { 
+    margin: 20%;
+    margin-top: 10%;
+
+}
+
+.join {
+    display: flex; 
+}
+
+
+.form-control {
+    /* flex: 1;  */
+    margin-right: 10px;
+}
+
+.link {
+    margin: 10%;
+}
+

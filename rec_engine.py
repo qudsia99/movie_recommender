@@ -19,7 +19,7 @@ tfidf_matrix = tfidf.fit_transform(df['combined'])
 similarity = linear_kernel(tfidf_matrix, tfidf_matrix)
 
 
-def get_recs(movie_title, df, similarity, columns=['title', 'release_year', 'genre_types', 'description']):
+def get_recs(movie_title, df, similarity, columns=['title', 'release_year', 'genre_types', 'description', 'rating']):
  
     # Filter movies based on release year and genre
     idx = df[df['title'] == movie_title].index

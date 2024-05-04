@@ -33,8 +33,8 @@ def movies():
     movie_title = request.form.get('movie_title')
     movie_title = movie_title.lower()
 
-    #rec_df = pd.DataFrame({'title':[movie_title]})
-    #rn hashed out the
+   
+    #UNHASH BOTTOM FOR MESSAGE IN WHICH THE MOVIE DOESNT EXIST IN DATASET.
     # movie_row = df[df['title'].str.lower() == movie_title]
     # if movie_row.empty:
     #     return render_template('error.html',

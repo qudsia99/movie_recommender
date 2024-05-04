@@ -9,9 +9,7 @@ import joblib
 # Filter Warnings
 from warnings import filterwarnings
 
-# Loading cleaned data
-df_path = Path('cleaned_data/movie_data.csv')
-df = pd.read_csv(df_path)
+df = pd.read_csv('cleaned_data/movie_data.csv')
 
 # TF-IDF Vectorization to assess importance of each word in 'combined' column
 tfidf = TfidfVectorizer(stop_words='english')
@@ -20,7 +18,9 @@ tfidf_matrix = tfidf.fit_transform(df['combined'])
 # Measures similarity among movies based on their 'description' 
 similarity = linear_kernel(tfidf_matrix, tfidf_matrix)
 
+
 def get_recs(movie_title, df, similarity, columns=['title', 'release_year', 'genre_types', 'description']):
+ 
     # Filter movies based on release year and genre
     idx = df[df['title'] == movie_title].index
     if idx.empty:

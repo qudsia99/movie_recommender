@@ -5,7 +5,7 @@
 
 <meta charseet="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equip="X-UA-Compatible" content="'ie-edge">
+<meta http-equiv="X-UA-Compatible" content="'ie-edge">
 
 <!-- Style Sheet -->
 <link rel="stylesheet" type="text/css" href="../static/style.css">
@@ -47,10 +47,10 @@
 <div>
     {% for result in results %}
     <div class="movie">
-        <h44>{{ result.title }}</h4>
+        <h4>{{ result.title }} ({{result.release_year}})</h4>
         <p>Release Year: {{ result.release_year }}</p>
-        <p>Genre: {{ result.genre }}</p>
-        <p>Rating: {{ result.rating }}</p>
+        <p>Genre: {{ result.genre_types }}</p>
+        <p>Rating: {{ result.rating | safe }}</p>
         <p>Description: {{ result.description }}</p>
     </div>
     {% endfor %}

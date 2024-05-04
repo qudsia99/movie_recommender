@@ -5,14 +5,24 @@ import numpy as np
 import pandas as pd
 import joblib
 from rec_engine import get_recs 
+from pathlib import Path
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import linear_kernel
 
 # Creating flask instance
 app = Flask(__name__)
 Bootstrap(app)
 
-# Loading engine and calling function
+# Loading engine and data 
 recommendation_engine = joblib.load('rec_engine.joblib')
+df = pd.read_csv('cleaned_data/movie_data.csv')
 
+# TF-IDF Vectorization to assess importance of each word in 'combined' column
+tfidf = TfidfVectorizer(stop_words='english')
+tfidf_matrix = tfidf.fit_transform(df['combined'])
+
+# Measures similarity among movies based on their 'description' 
+similarity = linear_kernel(tfidf_matrix, tfidf_matrix)
 
 @app.route('/')
 def index():
@@ -22,19 +32,33 @@ def index():
 def movies():
     movie_title = request.form.get('movie_title')
     movie_title = movie_title.lower()
-    rec_df = pd.DataFrame({'title':[movie_title]})
-    predictions = get_recs(movie_title)
 
-    results = []
-    for i in range(len(predictions)):
-        result = { 'title': predictions['title'][i],
-              'release_year': predictions['release_year'][i],
-              'genre': predictions['genre_types'][i],
-              'rating':predictions['rating'][i],
-              'description': predictions['description'][i]}
-        results.append(result)
+    #rec_df = pd.DataFrame({'title':[movie_title]})
+    #rn hashed out the
+    # movie_row = df[df['title'].str.lower() == movie_title]
+    # if movie_row.empty:
+    #     return render_template('error.html',
+    #     error_message=f"Movie '{movie_title}' not found in the dataset.")
 
-    return render_template('index.html', result=result)
+    # Get movie information from the dataset
+    # movie_info = movie_row.iloc[0]
+    recommended_movies = get_recs(movie_title,df,similarity)
+    results = recommended_movies.to_dict(orient='records')
+
+
+    # predictions = get_recs(movie_title, df, similarity)
+    # print("Predictions:", predictions)
+
+    # results = []
+    # for i in range(len(predictions)):
+    #     result = { 'title': predictions['title'][i],
+    #           'release_year': predictions['release_year'][i],
+    #           'genre': predictions['genre_types'][i],
+    #           'rating':predictions['rating'][i],
+    #           'description': predictions['description'][i]}
+    #     results.append(result)
+    # print("Results:", results)
+    return render_template('index.html', results=results)
 
 @app.route('/filter')
 def diagnosis_page():

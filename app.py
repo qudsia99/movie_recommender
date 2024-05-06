@@ -33,31 +33,14 @@ def movies():
     movie_title = request.form.get('movie_title')
     movie_title = movie_title.lower()
 
-   
-    #UNHASH BOTTOM FOR MESSAGE IN WHICH THE MOVIE DOESNT EXIST IN DATASET.
-    # movie_row = df[df['title'].str.lower() == movie_title]
-    # if movie_row.empty:
-    #     return render_template('error.html',
-    #     error_message=f"Movie '{movie_title}' not found in the dataset.")
+    movie_row = df[df['title'].str.lower() == movie_title]
+    if movie_row.empty:
+        return render_template('error.html',
+        error_message=f"Movie '{movie_title}' not found in the dataset.")
 
-    # Get movie information from the dataset
-    # movie_info = movie_row.iloc[0]
     recommended_movies = get_recs(movie_title,df,similarity)
     results = recommended_movies.to_dict(orient='records')
 
-
-    # predictions = get_recs(movie_title, df, similarity)
-    # print("Predictions:", predictions)
-
-    # results = []
-    # for i in range(len(predictions)):
-    #     result = { 'title': predictions['title'][i],
-    #           'release_year': predictions['release_year'][i],
-    #           'genre': predictions['genre_types'][i],
-    #           'rating':predictions['rating'][i],
-    #           'description': predictions['description'][i]}
-    #     results.append(result)
-    # print("Results:", results)
     return render_template('index.html', results=results)
 
 @app.route('/filter')

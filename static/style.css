@@ -3,13 +3,8 @@ To select a class: .classname
 To select an ID: #idname
  */
 
-body {
-    background-color: blueviolet;
-
-}
-
 h1 {
-    background-color:rgb(200, 161, 161);
+    /* background-color:rgb(185, 161, 200); */
     margin: 30%;
     text-align: center;
     border-radius: 10px;
@@ -27,8 +22,18 @@ h1 {
 
 
 .form-control {
-    /* flex: 1;  */
     margin-right: 10px;
 }
 
 
+.wrapper {
+
+    width: 60%;
+    background-color: #e6d68e; 
+    padding: 20px; 
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.16); 
+    border-radius: 5px; 
+    margin: 20%;
+    margin-top: 10%;
+    display: block;
+}

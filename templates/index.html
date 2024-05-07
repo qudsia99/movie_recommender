@@ -19,9 +19,8 @@
 <body>
 
 <!-- Website Title Etc. -->
-<h1> <b> The</b></h1>
-<h1>MOVIE </h1> 
-<h1> <b> Box</b></h1>
+<h1> <b><br> The <br> Movie Recommender <br> <br> </b></h1> 
+
 
 <form method="Post" action="/recommend">
 <div class="mb-3 main-bar">
@@ -38,20 +37,21 @@
     </div>
 
  <div id="movieHelp" class="form-text btn btn-link link" data-bs-toggle="tooltip" title="Click me!"
- onclick="nextPage()">Search by genre and rating</div>
+ onclick="nextPage()">How does this work?</div>
 </div>
   
 
 </form>
 <div class="wrapper" id="searchResults" style="text-align: center;">
-<h3>My Top 10 List</h3>
-<p style="text-align: left;"> Here is a list of movies, recommended by the machine based on the movie you entered. The similarity among the movies is judged upon crtieria such as cast..</p>
+<h3><b>My Top 10 List</b></h3>
+<p style="text-align: left;"> Here is a list of movies, recommended by the machine based on the movie you entered. The similarity among 
+    the movies is judged upon the rating info, genre, writers, directors, cast and movie descriptions!<br><br> </p>
 <div>
     {% for result in results %}
     <div class="movie">
-        <h4>{{ result.original_title }} ({{result.release_year}})</h4>
-        <p><i>Genre(s): {{ result.genre_types }}</i></p>
-        <p>Rated {{ result.rating | safe }}</p>
+        <h4> <b>{{ result.original_title }} ({{result.release_year}})</b></h4>
+        <p> <b> Genre(s): {{ result.genre_types }}</b></p>
+        <p><i>Rated {{ result.rating | safe }} </i></p>
         <p style="text-align: left;">{{ result.description }}</p>
     </div>
     {% endfor %}

@@ -1,11 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from flask_bootstrap import Bootstrap
-import json
-import numpy as np
 import pandas as pd
-import joblib
 from rec_engine import get_recs 
-from pathlib import Path
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 
@@ -13,8 +9,7 @@ from sklearn.metrics.pairwise import linear_kernel
 app = Flask(__name__)
 Bootstrap(app)
 
-# Loading engine and data 
-recommendation_engine = joblib.load('rec_engine.joblib')
+# Loading data 
 df = pd.read_csv('cleaned_data/movie_data.csv')
 
 # TF-IDF Vectorization to assess importance of each word in 'combined' column

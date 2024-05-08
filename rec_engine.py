@@ -1,4 +1,4 @@
-# Import Dependencies
+# Importing Dependencies
 from pathlib import Path
 import numpy as np 
 import pandas as pd
@@ -11,43 +11,39 @@ from warnings import filterwarnings
 
 df = pd.read_csv('cleaned_data/movie_data.csv')
 
-# TF-IDF Vectorization to assess importance of each word in 'combined' column
+# TF-IDF Vectorization to assess importance of each word in the 'combined' column
 tfidf = TfidfVectorizer(stop_words='english')
 tfidf_matrix = tfidf.fit_transform(df['combined'])
 
-# Measures similarity among movies based on their 'description' 
+# Measuring similarity (cosine matrix) among movies : 'combined' feature
 similarity = linear_kernel(tfidf_matrix, tfidf_matrix)
 
-
+# Building the function
 def get_recs(movie_title, df, similarity, columns=['title', 'release_year', 'genre_types', 'description', 'rating', 'original_title']):
  
-    # Filter movies based on release year and genre
+    # Searching inputted movie in dataset
     idx = df[df['title'] == movie_title].index
     if idx.empty:
         return f"Movie '{movie_title}' not found in the dataset."
 
-    # Get the first index from the list (assuming there's only one match)
+    # Grabbing the first index from the list 
     idx = idx[0]
 
-    # Get similarity scores of all movies with the given movie
+    # Fetching similarity scores of corresponding movies
     sim_scores = list(enumerate(similarity[idx]))
 
-    # Sort the movies based on similarity scores
+    # Sorting the movies based on similarity scores using lambda
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
 
-    # Get top 10 similar movies (excluding the given movie itself)
+    # Grabbing first 10 and indices
     sim_scores = sim_scores[1:11]
-
-    # Get indices of the top 10 similar movies
     movie_indices = [i[0] for i in sim_scores]
 
-    # Get DataFrame of recommended movies with specified columns
+    # Filtering dataframe with the recommended movies 
     recommended_movies = df.iloc[movie_indices][columns]
 
     return recommended_movies
 
+# Incase to debug, unhash lines 48-49
 # recommended_movies = get_recs('insidious',df, similarity)
 # print(recommended_movies)
-
-# Save the function to a joblib file
-joblib.dump(get_recs, 'rec_engine.joblib')

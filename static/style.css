@@ -1,33 +1,28 @@
 /* 
-To select a class: .classname
-To select an ID: #idname
- */
+.classname
+#idname
+*/
 
 h1 {
     background-color:#f4f3da;
     text-align: center;
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .main-bar { 
     margin: 20%;
     margin-top: 10%;
-
 }
 
 .join {
     display: flex; 
 }
 
-
 .form-control {
     margin-right: 10px;
 }
 
-
 .wrapper {
-
     width: 60%;
     background-color: #e6d68e; 
     padding: 20px; 

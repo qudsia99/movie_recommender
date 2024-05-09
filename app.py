@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 import pandas as pd
 from rec_engine import get_recs 
